@@ -1,0 +1,83 @@
+import random
+
+def gerar_cpf():
+    cpf = ""
+    for i in range(9):
+        cpf += str(random.randint(0, 9))
+
+    # Calcula o primeiro dígito verificador
+    soma = 0
+    for i in range(9):
+        soma += int(cpf[i]) * (10 - i)
+    digito1 = 11 - (soma % 11)
+    if digito1 > 9:
+        digito1 = 0
+    cpf += str(digito1)
+
+    # Calcula o segundo dígito verificador
+    soma = 0
+    for i in range(10):
+        soma += int(cpf[i]) * (11 - i)
+    digito2 = 11 - (soma % 11)
+    if digito2 > 9:
+        digito2 = 0
+    cpf += str(digito2)
+
+    return cpf
+
+def verificar_cpf(cpf):
+    
+   # Verifica se o CPF tem 11 dígitos
+   if len(cpf) != 11:
+      print("CPF inválido: deve conter 11 dígitos.")
+      return False
+   
+   # Verifica se todos os caracteres são números
+   if not cpf.isnumeric():
+      print("CPF inválido: deve conter apenas números.")
+      return False
+
+   # Calcula os dígitos verificadores
+   soma = 0
+   for i in range(9):
+      soma += int(cpf[i]) * (10 - i)
+   digito1 = 11 - (soma % 11)
+   if digito1 > 9:
+      digito1 = 0
+
+   soma = 0
+   for i in range(10):
+      soma += int(cpf[i]) * (11 - i)
+   digito2 = 11 - (soma % 11)
+   if digito2 > 9:
+      digito2 = 0
+
+   # Verifica se os dígitos verificadores estão corretos
+   if int(cpf[9]) == digito1 and int(cpf[10]) == digito2:
+      print("CPF válido!")
+      return True
+   else:
+      print("CPF inválido!")
+      return False
+
+def main():
+    
+   while True:
+      print("\nDigite 'g' para gerar um CPF aleatório ou 'v' para verificar um CPF.")
+      opcao = input("Opção: ")
+      
+      if opcao.lower() == "g":
+         cpf_gerado = gerar_cpf()
+         print(f"CPF gerado: {cpf_gerado}")
+         
+      elif opcao.lower() == "v":
+         cpf_digitado = input("Digite o CPF a ser verificado (apenas números): ")
+         while not cpf_digitado.isnumeric():
+            cpf_digitado = input("Digite apenas números. Tente novamente: ")
+         verificar_cpf(cpf_digitado)
+         
+      else:
+         print("Opção inválida. Tente novamente.")
+
+if __name__ == "__main__":
+   main()
