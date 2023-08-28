@@ -7,4 +7,4 @@ verificar_cpf(cpf): Esta função verifica se um número de CPF fornecido é vá
 
 main(): Esta é a função principal que executa o script. Ela pede ao usuário para escolher entre gerar um novo CPF ou verificar um CPF existente.
 
-O script continua pedindo ao usuário para escolher uma opção até que o programa seja interrompido.
+
